@@ -22,20 +22,22 @@ function CheckList() {
         <div className="pl-4 pt-4 font-bold mb-4 text-xl">
           এই কোর্সে যা থাকছে
         </div>
-        <div className="pl-4 pb-4 bg-white rounded-lg shadow-md">
+        <div className="pl-4 pb-4 bg-white rounded-lg ">
           <ul className="space-y-3 list-none">
             {data?.checklist.map((item) => (
               <li
                 key={item.id}
                 className="flex items-center space-x-3 list-none "
               >
-                <Image
-                  src={item.icon}
-                  alt="icon"
-                  width={20}
-                  height={20}
-                  className="object-contain"
-                />
+                  <div className="relative w-5 h-5">
+                  <Image
+                    src={item.icon}
+                    alt="icon"
+                    fill
+                    sizes="20px"
+                    className="object-contain"
+                  />
+                </div>
                 <span className="text-md text-[#111827]">{item.text}</span>
               </li>
             ))}
