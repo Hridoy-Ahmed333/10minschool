@@ -36,10 +36,10 @@ function TopRightContainer() {
           <div className="border w-full">
             <div className="p-1 w-full">
               <VideoPlayer />
-              <div className="absolute left-[10px] top-1/2 -translate-y-1/2 z-[50] h-[30px] w-[30px] cursor-pointer bg-white rounded-full flex items-center justify-center">
+              <div className=" hidden absolute left-[10px] top-1/2 -translate-y-1/2 z-[50] h-[30px] w-[30px] cursor-pointer bg-white rounded-full md:flex items-center justify-center">
                 <IoIosArrowBack className="text-black text-xl" />
               </div>
-              <div className="absolute right-[10px] top-1/2 -translate-y-1/2 z-[50] h-[30px] w-[30px] cursor-pointer bg-white rounded-full flex items-center justify-center">
+              <div className="hidden absolute right-[10px] top-1/2 -translate-y-1/2 z-[50] h-[30px] w-[30px] cursor-pointer bg-white rounded-full md:flex items-center justify-center">
                 <IoIosArrowForward className="text-black text-xl" />
               </div>
             </div>

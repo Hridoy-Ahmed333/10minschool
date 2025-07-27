@@ -1,17 +1,17 @@
 import React from "react";
 import StickyTabs from "./StickyTabs";
+import Instructor from "../BottomSections/Instructor";
+import CourseLayOut from "../BottomSections/CourseLayOut";
+import PdfDownload from "../BottomSections/PdfDownload";
 
 function ContainerBody() {
   return (
-        <div className="flex flex-row justify-end">
+    <div className="flex flex-row ml-1 mr-1 md:justify-end md:ml-0">
       <div className="w-full max-w-[750px] flex flex-col">
         <StickyTabs />
-        <div id="instructor" className="min-h-screen">
-          Course Instructor
-        </div>
-        <div id="layout" className="min-h-screen">
-          Layout
-        </div>
+        <Instructor />
+        <CourseLayOut />
+        <PdfDownload/>
         <div id="learning" className="min-h-screen">
           Learning
         </div>

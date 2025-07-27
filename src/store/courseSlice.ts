@@ -14,23 +14,26 @@ const initialState: CourseState = {
   error: null,
 };
 
-// Async thunk
-export const fetchCourse = createAsyncThunk("course/fetchCourse", async () => {
-  const res = await fetch(
-    "https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=en",
-    {
-      headers: {
-        "X-TENMS-SOURCE-PLATFORM": "web",
-        Accept: "application/json",
-      },
+
+export const fetchCourse = createAsyncThunk(
+  "course/fetchCourse",
+  async (lang: "en" | "bn" = "en") => {
+    const res = await fetch(
+      `https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=${lang}`,
+      {
+        headers: {
+          "X-TENMS-SOURCE-PLATFORM": "web",
+          Accept: "application/json",
+        },
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch course data");
     }
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch course data");
+    const json = await res.json();
+    return json.data;
   }
-  const json = await res.json();
-  return json.data;
-});
+);
 
 const courseSlice = createSlice({
   name: "course",

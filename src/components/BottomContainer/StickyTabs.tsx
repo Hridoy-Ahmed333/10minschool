@@ -7,8 +7,8 @@ const tabs = [
   { label: "Course instructor", target: "instructor" },
   { label: "How the course is laid out", target: "layout" },
   { label: "What you will learn by doing the course", target: "learning" },
-  { label: "Course content", target: "content" },
-  { label: "Student reviews", target: "reviews" },
+  { label: "Course details", target: "content" },
+  { label: "Course Exclusive Features", target: "reviews" },
   { label: "FAQs", target: "faq" },
   { label: "Pricing", target: "pricing" },
 ];
@@ -19,18 +19,20 @@ export default function StickyTabs() {
   const [canScrollRight, setCanScrollRight] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // For dragging
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollStartLeft = useRef(0);
 
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveTab(id);
-    }
-  };
+  const el = document.getElementById(id);
+  if (el) {
+    const yOffset = -160; // scroll 50px above the element
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({ top: y, behavior: "smooth" });
+    setActiveTab(id);
+  }
+}
 
   const updateScrollButtons = () => {
     const el = scrollRef.current;
@@ -83,9 +85,8 @@ export default function StickyTabs() {
   }, []);
 
   return (
-    <div className="sticky top-0 p-2 z-50 bg-white w-full">
+    <div className="sticky top-[65px] p-2 z-50 bg-white w-full hidden md:block">
       <div className="flex items-center px-2">
-        {/* Left Arrow */}
         <div
           onClick={canScrollLeft ? scrollLeft : undefined}
           className={`h-[35px] w-[35px] cursor-pointer rounded-full flex items-center justify-center text-white ${
@@ -94,8 +95,6 @@ export default function StickyTabs() {
         >
           <IoIosArrowBack className="text-2xl" />
         </div>
-
-        {/* Scrollable Tabs */}
         <div
           ref={scrollRef}
           onMouseDown={handleMouseDown}
