@@ -42,7 +42,7 @@ function BottomContainer() {
       >
         {hasScrolled && leftOffset !== null && (
           <div
-            className="fixed top-[50px] w-[400px] p-4 bg-white rounded z-50 border border-gray-300"
+            className="fixed top-[100px] w-[400px] p-4 bg-white rounded z-50 border border-gray-300"
             style={{ left: `${leftOffset + 40}px` }}
           >
             <CheckList />

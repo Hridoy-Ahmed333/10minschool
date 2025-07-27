@@ -29,7 +29,7 @@ function CourseLayOut() {
 
   return (
     <div id="layout" className="mt-10 flex flex-col gap-4 md:ml-10">
-      <div className="text-xl font-bold">{rawValue ? name : "How the course is laid out"}</div>
+      <div className="text-2xl font-bold">{rawValue ? name : "How the course is laid out"}</div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0 p-1 bg-[#111827] rounded">
         {layoutData && layoutData.length > 0 ? (
           layoutData.map((item) => (
