@@ -1,5 +1,5 @@
 "use client";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { Course } from '../types/course.types'
 
 interface CourseState {
@@ -15,44 +15,20 @@ const initialState: CourseState = {
 };
 
 
-export const fetchCourse = createAsyncThunk(
-  "course/fetchCourse",
-  async (lang: "en" | "bn" = "en") => {
-    const res = await fetch(
-      `https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=${lang}`,
-      {
-        headers: {
-          "X-TENMS-SOURCE-PLATFORM": "web",
-          Accept: "application/json",
-        },
-      }
-    );
-    if (!res.ok) {
-      throw new Error("Failed to fetch course data");
-    }
-    const json = await res.json();
-    return json.data;
-  }
-);
-
 const courseSlice = createSlice({
   name: "course",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchCourse.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchCourse.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.data = action.payload;
-      })
-      .addCase(fetchCourse.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message || "Something went wrong";
-      });
+  reducers: {
+    setCourseFromServer(state, action) {
+      state.data = action.payload;
+      state.status = "succeeded";
+      state.error = null;
+    },
   },
 });
 
+export const { setCourseFromServer } = courseSlice.actions;
 export default courseSlice.reducer;
+
+
+

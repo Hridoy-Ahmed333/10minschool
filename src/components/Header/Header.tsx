@@ -1,28 +1,22 @@
 "use client";
-import { fetchCourse } from "@/store/courseSlice";
-import { AppDispatch } from "@/store/store";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+
+import { useSearchParams, useRouter } from "next/navigation";
 import HeaderLeft from "./HeaderLeft";
 import HeaderMid from "./HeaderMid";
 import { FaPhoneAlt } from "react-icons/fa";
-import { setLanguage } from "@/store/languageSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 
 function Header() {
-  const dispatch = useDispatch<AppDispatch>();
-   const lan = useSelector((state: RootState) => state.language.lan);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  useEffect(() => {
-    dispatch(fetchCourse(lan));
-  }, [dispatch, lan]);
-
+  const rawLang = searchParams.get("lang");
+const lan: "en" | "bn" = rawLang === "bn" ? "bn" : "en";
 
   const toggleLanguage = () => {
-  dispatch(setLanguage(lan === "en" ? "bn" : "en"));
-};
+    const newLang = lan === "en" ? "bn" : "en";
+
+    router.push(`/?lang=${newLang}`);
+  };
 
   return (
     <div className="h-full flex flex-row justify-between items-center ">
@@ -48,8 +42,6 @@ function Header() {
         <div className="bg-green-600 text-white px-4 py-1 w-25 h-8 flex justify-center items-center rounded-md cursor-pointer hover:bg-green-700 transition text-[14px]">
           লগ ইন
         </div>
-
-        <div></div>
       </div>
     </div>
   );

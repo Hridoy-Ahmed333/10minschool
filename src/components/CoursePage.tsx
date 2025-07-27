@@ -1,23 +1,34 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCourse } from "../store/courseSlice";
-import { RootState, AppDispatch } from "../store/store";
+import { useDispatch } from "react-redux";
+import { setCourseFromServer } from "../store/courseSlice";
+import { AppDispatch } from "../store/store";
 import { ScrollProvider } from "./ScrollContext";
+import { Course } from "@/types/course.types";
 
-// Lazy load TopContainer and BottomContainer
 const TopContainer = dynamic(() => import("./TopContainer/TopContainer"), {
-  ssr: false, 
-});
-const BottomContainer = dynamic(() => import("./BottomContainer/BottomContainer"), {
   ssr: false,
 });
+const BottomContainer = dynamic(
+  () => import("./BottomContainer/BottomContainer"),
+  {
+    ssr: false,
+  }
+);
 
-export default function CoursePage() {
-  const { data } = useSelector(
-    (state: RootState) => state.course
-  );
+interface Props {
+  initialData: Course;
+}
+
+export default function CoursePage({ initialData }: Props) {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (initialData) {
+      dispatch(setCourseFromServer(initialData));
+    }
+  }, [dispatch, initialData]);
 
   return (
     <ScrollProvider>
@@ -25,9 +36,14 @@ export default function CoursePage() {
         <div className="flex flex-col w-100% min-h-screen">
           <div
             id="skills-landing"
-            className="flex flex-col items-center min-h-[300px] md:justify-center md:flex-row bg-[url('https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg')] bg-cover bg-center mt-[65px]"
+            className="flex flex-col items-center min-h-[300px] md:justify-center md:flex-row bg-cover bg-center mt-[65px]"
+            style={{
+              backgroundImage: "url(https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
           >
-            {data && <TopContainer />}
+            <TopContainer />
           </div>
           <div>
             <BottomContainer />

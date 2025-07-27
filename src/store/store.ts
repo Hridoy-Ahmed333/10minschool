@@ -1,12 +1,10 @@
 'use client'
 import { configureStore } from "@reduxjs/toolkit";
 import courseReducer from "./courseSlice";
-import languageReducer from "./languageSlice";
 
 export const store = configureStore({
   reducer: {
     course: courseReducer,
-    language: languageReducer,
   },
 });
 

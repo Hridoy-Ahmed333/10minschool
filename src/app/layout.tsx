@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/store/ReduxProvider";
 import Header from "@/components/Header/Header";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,7 +49,10 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <header className="fixed top-0 left-0 w-full z-51 bg-white h-[65px] border-b border-gray-200">
-            <Header />
+            {/* <Header /> */}
+            <Suspense fallback={null}>
+              <Header />
+            </Suspense>
           </header>
           {children}
         </ReduxProvider>
