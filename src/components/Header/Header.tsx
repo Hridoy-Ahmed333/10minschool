@@ -13,16 +13,27 @@ function Header() {
   const rawLang = searchParams.get("lang");
 const lan: "en" | "bn" = rawLang === "bn" ? "bn" : "en";
 
-  const toggleLanguage = () => {
-    const currentLang = searchParams.get('lang') === 'en' ? 'en' : 'bn';
-    const newLang = currentLang === 'en' ? 'bn' : 'en';
+  // const toggleLanguage = () => {
+  //   const currentLang = searchParams.get('lang') === 'en' ? 'en' : 'bn';
+  //   const newLang = currentLang === 'en' ? 'bn' : 'en';
 
   
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('lang', newLang);
+  //   const params = new URLSearchParams(searchParams.toString());
+  //   params.set('lang', newLang);
 
-    router.push(`${pathname}?${params.toString()}`);
-  }
+  //   router.push(`${pathname}?${params.toString()}`);
+  // }
+
+  const toggleLanguage = () => {
+
+  const currentLang = searchParams.get('lang') === 'en' ? 'en' : 'bn';
+  const newLang = currentLang === 'en' ? 'bn' : 'en';
+
+  const params = new URLSearchParams(searchParams.toString());
+  params.set('lang', newLang);
+
+  window.location.href = `${pathname}?${params.toString()}`;
+};
 
   return (
     <div className="h-full flex flex-row justify-between items-center ">
