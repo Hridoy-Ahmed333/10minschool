@@ -10,15 +10,17 @@ import { Course } from "@/types/course.types";
 const TopContainer = dynamic(() => import("./TopContainer/TopContainer"), {
   ssr: false,
 });
-const BottomContainer = dynamic(
-  () => import("./BottomContainer/BottomContainer"),
-  {
-    ssr: false,
-  }
-);
+const BottomContainer = dynamic(() => import("./BottomContainer/BottomContainer"), {
+  ssr: false,
+});
 
 interface Props {
   initialData: Course;
+}
+
+interface SchemaItem {
+  meta_name: string;
+  meta_value: string;
 }
 
 export default function CoursePage({ initialData }: Props) {
@@ -30,6 +32,12 @@ export default function CoursePage({ initialData }: Props) {
     }
   }, [dispatch, initialData]);
 
+
+  const ldJsonScripts = initialData?.seo?.schema
+    ?.filter((item: SchemaItem) => item.meta_name === "ld-json")
+    .map((item: SchemaItem) => item.meta_value);
+
+
   return (
     <ScrollProvider>
       <main>
@@ -38,7 +46,8 @@ export default function CoursePage({ initialData }: Props) {
             id="skills-landing"
             className="flex flex-col items-center min-h-[300px] md:justify-center md:flex-row bg-cover bg-center mt-[65px]"
             style={{
-              backgroundImage: "url(https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg)",
+              backgroundImage:
+                "url(https://cdn.10minuteschool.com/images/ui_%281%29_1716445506383.jpeg)",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -49,6 +58,15 @@ export default function CoursePage({ initialData }: Props) {
             <BottomContainer />
           </div>
         </div>
+
+
+        {ldJsonScripts?.map((jsonLd: string, idx: number) => (
+          <script
+            key={idx}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: jsonLd }}
+          />
+        ))}
       </main>
     </ScrollProvider>
   );

@@ -20,21 +20,6 @@ export const metadata: Metadata = {
     icons: {
     icon: "https://cdn.10minuteschool.com/image/icon-512x512_1702964557063.png", 
   },
-  description:
-    "Access free and premium online courses for SSC, HSC, university admission, skills, and more with 10 Minute School. Learn with video lessons, quizzes, and expert teachers.",
-  keywords: [
-    "10 Minute School",
-    "online education",
-    "Bangladesh",
-    "SSC",
-    "HSC",
-    "admission test",
-    "skills",
-    "video courses",
-    "online learning",
-    "education app",
-  ],
-
 };
 
 export default function RootLayout({

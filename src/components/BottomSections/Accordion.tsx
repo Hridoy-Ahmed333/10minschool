@@ -10,6 +10,8 @@ function Accordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { data } = useSelector((state: RootState) => state.course);
 
+  // console.log(data);
+
   function isAccordionArray(arr: unknown): arr is AccordionInt[] {
     return (
       Array.isArray(arr) &&
