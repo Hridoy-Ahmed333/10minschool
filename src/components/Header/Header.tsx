@@ -1,22 +1,28 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
 import HeaderLeft from "./HeaderLeft";
 import HeaderMid from "./HeaderMid";
 import { FaPhoneAlt } from "react-icons/fa";
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 function Header() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const router = useRouter();
 
   const rawLang = searchParams.get("lang");
 const lan: "en" | "bn" = rawLang === "bn" ? "bn" : "en";
 
   const toggleLanguage = () => {
-    const newLang = lan === "en" ? "bn" : "en";
+    const currentLang = searchParams.get('lang') === 'en' ? 'en' : 'bn';
+    const newLang = currentLang === 'en' ? 'bn' : 'en';
 
-    router.push(`/?lang=${newLang}`);
-  };
+  
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('lang', newLang);
+
+    router.push(`${pathname}?${params.toString()}`);
+  }
 
   return (
     <div className="h-full flex flex-row justify-between items-center ">
