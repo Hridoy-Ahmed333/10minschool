@@ -8,7 +8,7 @@
 - To start App in **Production Environment** Run **"npm start"**.
 - To start **Development Environment** Run **"npm run dev"**.
 
-## //Build Version is already Included.//
+## //Build Version is Included.//
 
 ## What I have Done?
 
